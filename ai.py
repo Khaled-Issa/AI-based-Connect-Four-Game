@@ -1,8 +1,10 @@
 currentState=[['0' for col in range(7)] for row in range(6)]
-currentState[5][0]='R'
-currentState[4][1]='R'
-currentState[3][2]='R'
-currentState[2][3]='R'
+
+currentState[5][2]='R'
+currentState[4][3]='R'
+currentState[3][4]='R'
+currentState[2][5]='R'
+
 def isComplete(row,start,end):
     for i in range(start+1,end):
         if row[i]!=row[i-1]:
