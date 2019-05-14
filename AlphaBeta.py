@@ -1,19 +1,36 @@
 import ai
 
 def MinValue(state, Alpha, Beta):
-	if isBaseCase(state) != "0":
-		value = "PosInf"
+	# Check if the current state is a terminal one "win/draw"
+	# if yes return the utitilty "R/G/0"
+	utitilty = isBaseCase(state)
+	if utitilty != "0":
+		return utitilty
+	
+	value = float("inf")
+
+	# loop in all successors/children
+	for X in successors(state):
+		maxValue = MaxValue(x, Alpha, Beta)
+		value = min(value, maxValue)
+		if value <= Alpha:
+			return value
+		Beta = max(Beta, value)
+	return value
+
 def MaxValue(state, Alpha, Beta):
 	# Check if the current state is a terminal one "win/draw"
 	# if yes return the utitilty "R/G/0"
-	if isBaseCase(state) != "0":
-		return 
-	# Put value to negative infinity
-	value = "NegInf"
+	utitilty = isBaseCase(state)
+	if utitilty != "0":
+		return utitilty
+	
+	value = float("-inf")
 
 	# loop in all successors/children
 	for X in Successors(state):
-		value = max(value, MinValue(X,Alpha,Beta))
+		minValue = float(MinValue(X,Alpha,Beta))
+		value = max(value, minValue)
 		if value >= Beta:
 			return value
 		Alpha = max(Alpha, value)
@@ -24,7 +41,7 @@ def MaxValue(state, Alpha, Beta):
 
 # return action to the Interface function
 def AlphaBeta(state):
-	v = MaxValue(state, "NegInf", "PosInf")
+	v = MaxValue(state, float("-inf"), float("inf"))
 	return 0
 
 #print(max(2,5))
