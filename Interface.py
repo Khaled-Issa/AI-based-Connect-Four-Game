@@ -18,7 +18,7 @@ def open_row_position(board,col):
             return rp   
 
 def pretty_print(pboard):
-    print(np.flip(board,0))
+    print(np.flip(pboard,0))
    
 
 '''

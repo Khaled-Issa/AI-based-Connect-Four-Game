@@ -1,5 +1,5 @@
-import ai
-import Interface
+from ai import *
+from Interface import *
 
 # return all the state successors
 def Successors(state):
@@ -18,7 +18,7 @@ def MinValue(state, Alpha, Beta):
 	value = float("inf")
 
 	# loop in all successors/children
-	for X in Successors(state):
+	for x in Successors(state):
 		maxValue = MaxValue(x, Alpha, Beta)
 		value = min(value, maxValue)
 		if value <= Alpha:
@@ -37,7 +37,7 @@ def MaxValue(state, Alpha, Beta):
 	value = float("-inf")
 
 	# loop in all successors/children
-	for X in Successors(state):
+	for x in Successors(state):
 		minValue = float(MinValue(X,Alpha,Beta))
 		value = max(value, minValue)
 		if value >= Beta:
@@ -46,10 +46,15 @@ def MaxValue(state, Alpha, Beta):
 	return value
 
 # return action to the Interface function >> NOT DONE YET
-def AlphaBeta(state):
+def AlphaBeta():
 	# Playing Logic
+	board = make_board()
+	pboard=np.array(board)
+
 	no_winner = True
 	turn = 0 
+
+	pretty_print(pboard)
 	while no_winner:
 	    #player 1
 	    if turn == 0:
@@ -61,17 +66,16 @@ def AlphaBeta(state):
 	        if column_is_full(board, col):
 	            row= open_row_position(board, col)
 	            drop_piece(board, row, col, "G")
-
-	           
+   
 	    else:
 	        # player 2 >> CHANGE THE 2ND PLAYER TO BOARD
 	        # Tree, Alpha Beta pruning
-	    	v = MaxValue(state, float("-inf"), float("inf"))
-	    	
+	    	v = MaxValue(board, float("-inf"), float("inf"))
+	    	# IS V the brnahes value ? Nope
 	    	# CREATE ACTION HERE
-	        if column_is_full(board, col):
-	            row=open_row_position(board, col)
-	            drop_piece(board,row,col,"R")
+	    	if column_is_full(board, col):
+	        	row=open_row_position(board, col)
+	        	drop_piece(board,row,col,"R")
 	    
 	    # Flip board
 	    fboard = np.flip(board,0)
@@ -84,4 +88,4 @@ def AlphaBeta(state):
 	  
 
 
-
+AlphaBeta()
