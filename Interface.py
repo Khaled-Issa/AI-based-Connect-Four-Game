@@ -21,6 +21,8 @@ def pretty_print(pboard):
     print(np.flip(board,0))
    
 
+'''
+
 board = make_board()
 pboard=np.array(board)
 
@@ -61,3 +63,4 @@ while no_winner:
     
 
 #fboard=np.asanyarray(board)   
+'''

@@ -41,4 +41,4 @@ def isBaseCase(state):
 ##    if (baseCheck != '0'):
 ##        return 
 #print(currentState)
-print(isBaseCase(currentState))
+#print(isBaseCase(currentState))

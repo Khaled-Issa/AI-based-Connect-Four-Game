@@ -1,30 +1,36 @@
 import pprint
 from  ai import *
-pp = pprint.PrettyPrinter()
+
+
+# make rows and cols equal
+def equal(rows, cols):
+	if len(rows) < len(cols):
+		for i in range(len(cols)-1):
+			rows.append(rows[0])
+	elif len(rows) > len(cols):
+		for i in range(len(rows)-1):
+			cols.append(cols[0])
+	return rows, cols
+def test(rows, cols):
+	pp = pprint.PrettyPrinter()
+	currentState=[['0' for col in range(7)] for row in range(6)]
+	# make rows and cols equal
+	rows, cols = equal(rows, cols)
+	for i in range(len(rows)):
+		currentState[rows[i]][cols[i]] = 'R'
+	pp.pprint(currentState)
+	try: 
+		print("isBaseCase:", isBaseCase(currentState))
+	except:
+		print("Test failed")
+
 
 print("***TESTING ROW***")
-currentState=[['0' for col in range(7)] for row in range(6)]
-currentState[5][4] = 'R'
-currentState[5][1] = 'R'
-currentState[5][2] = 'R'
-currentState[5][3] = 'R'
-pp.pprint(currentState)
-print("isBaseCase:", isBaseCase(currentState))
+test([0], [1,2,3,4])
 
 print("***TESTING COLUMN***")
-currentState=[['0' for col in range(7)] for row in range(6)]
-currentState[0][1] = 'R'
-currentState[1][1] = 'R'
-currentState[3][1] = 'R'
-currentState[2][1] = 'R'
-pp.pprint(currentState)
-print("isBaseCase:", isBaseCase(currentState))
+test([0,1,3,2], [1])
 
 print("***TESTING DIAGONAL***")
-currentState=[['0' for col in range(7)] for row in range(6)]
-currentState[5][0] = 'R'
-currentState[4][1] = 'R'
-currentState[3][2] = 'R'
-currentState[2][3] = 'R'
-pp.pprint(currentState)
-print("isBaseCase:", isBaseCase(currentState))
+test([5,4,3,2], [0,1,2,3])
+
