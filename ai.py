@@ -1,8 +1,8 @@
 currentState=[['0' for col in range(7)] for row in range(6)]
-currentState[5][2]='R'
-currentState[4][3]='R'
-currentState[3][4]='R'
-currentState[2][5]='R'
+currentState[5][0]='R'
+currentState[4][1]='R'
+currentState[3][2]='R'
+currentState[2][3]='R'
 def isComplete(row,start,end):
     for i in range(start+1,end):
         if row[i]!=row[i-1]:
@@ -29,7 +29,7 @@ def isBaseCase(state):
                 if result != 0:
                     return result
             if (col-4 >= 0) and (row+4 <= 6):
-                #print(row,col)
+                print(row,col)
                 vec = [state[row][col],state[row+1][col-1],state[row+2][col-2],state[row+3][col-3]]
                 result = isComplete(vec,0,4)
                 if result != 0:
