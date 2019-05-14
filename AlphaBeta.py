@@ -4,6 +4,7 @@ import Interface
 # return all the state successors
 def Successors(state):
 	successors = []
+	# get the 7 possible states out of each state: 0 to 6 using khaled's code
 	return successors
 
 # return the minmum value of this state
