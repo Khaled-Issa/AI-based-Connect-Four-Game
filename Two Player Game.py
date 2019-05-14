@@ -53,3 +53,6 @@ while no_winner:
             
     turn = turn + 1
     turn = turn % 2    
+    
+
+fboard=np.asanyarray(board)    
