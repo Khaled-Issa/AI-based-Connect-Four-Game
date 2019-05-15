@@ -2,10 +2,21 @@ from ai import *
 from Interface import *
 
 # return all the state successors
-def Successors(state):
-	successors = []
-	# get the 7 possible states out of each state: 0 to 6 using khaled's code
-	return successors
+def Successors(state,turn):
+        successors=[]
+        tempState=state
+        for col in range(7):
+                for row in range(6):
+                        if state[row][col] == '0':
+                                tempState=state
+                                tempState[row][col]=turn
+                                successors.append(tempState)
+                                tempState[row][col]='0'
+                                #print(row,col)
+                                #Move to the next column
+                                break
+        # get the 7 possible states out of each state: 0 to 6 using khaled's code
+        return successors
 
 # return the minmum value of this state
 def MinValue(state, Alpha, Beta):
@@ -18,7 +29,7 @@ def MinValue(state, Alpha, Beta):
 	value = float("inf")
 
 	# loop in all successors/children
-	for x in Successors(state):
+	for x in Successors(state,'G'):
 		maxValue = MaxValue(x, Alpha, Beta)
 		value = min(value, maxValue)
 		if value <= Alpha:
@@ -37,7 +48,7 @@ def MaxValue(state, Alpha, Beta):
 	value = float("-inf")
 
 	# loop in all successors/children
-	for x in Successors(state):
+	for x in Successors(state,'R'):
 		minValue = float(MinValue(X,Alpha,Beta))
 		value = max(value, minValue)
 		if value >= Beta:
