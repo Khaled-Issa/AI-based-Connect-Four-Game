@@ -5,12 +5,21 @@ currentState[4][3]='R'
 currentState[3][4]='R'
 currentState[2][5]='R'
 
+def column_is_full(board,col):
+    return board[5][col] == 0
+def isFull(board):
+    for i in range(7):
+        if !column_is_full(board,i):
+            return False
+    return True
 def isComplete(row,start,end):
     for i in range(start+1,end):
         if row[i]!=row[i-1]:
             return 0
     return row[0]
 def isBaseCase(state):
+    if isFull(state):
+        return 'D'
     for row in range(6):
         for col in range(7):
             if state[row][col] == '0':
