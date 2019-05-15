@@ -112,8 +112,9 @@ def testBoardInterface():
 	            col = int(input("choose where to play (from 0 to 6):"))
 
 	        if column_is_full(board, col):
-	            row= open_row_position(board, col)
-	            drop_piece(board, row, col, "G")
+	            print("I'm in col", col, "and it's full")
+	            row=open_row_position(board, col)
+	            drop_piece(board,row,col,"G")
 
 	    #player 2        
 	    else:
@@ -123,6 +124,7 @@ def testBoardInterface():
 	            col = int(input("choose where to play (from 0 to 6):"))  
 
 	        if column_is_full(board, col):
+	            print("I'm in col", col, "and it's full")
 	            row=open_row_position(board, col)
 	            drop_piece(board,row,col,"R")
 	    

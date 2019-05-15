@@ -86,6 +86,7 @@ def AlphaBeta():
 	    	# IS V the brnahes value ? Nope
 	    	# CREATE ACTION HERE
 	    	if column_is_full(board, col):
+	        	print("column is full")
 	        	row=open_row_position(board, col)
 	        	drop_piece(board,row,col,"R")
 	    

@@ -10,7 +10,8 @@ def make_board():
 def drop_piece(board,row,column,piece):
     board[row][column]=piece
 
-def column_is_full(board,col):
+def column_is_not_full(board,col):
+    print(board[5][col])
     return board[5][col] == 0
 
 def open_row_position(board,col):
