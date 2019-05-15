@@ -1,5 +1,6 @@
 import numpy as np
 
+# Board creation
 def make_board():
     rows, columns = 6, 7
     board = [[0 for x in range(columns)] for y in range(rows)]
@@ -20,9 +21,7 @@ def open_row_position(board,col):
 def pretty_print(pboard):
     print(np.flip(pboard,0))
    
-
 '''
-
 board = make_board()
 pboard=np.array(board)
 
@@ -52,6 +51,7 @@ while no_winner:
 
         if column_is_full(board, col):
             row=open_row_position(board, col)
+            print(row)
             drop_piece(board,row,col,"R")
     
     # Flip board
@@ -63,4 +63,8 @@ while no_winner:
     
 
 #fboard=np.asanyarray(board)   
+'''
+'''
+row = open_row_position(board, 1)
+print(row)
 '''

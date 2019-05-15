@@ -1,11 +1,14 @@
-import pprint
 from  ai import *
+from Interface import *
+
+import pprint
 import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
 
 pp = pprint.PrettyPrinter()
 
+# Print 2D in gray scale
 def colorPrint(state,  title = "figure1"):
 	tempState = state
 	for col in range(7):
@@ -22,12 +25,13 @@ def colorPrint(state,  title = "figure1"):
 	plt.title(title)
 	plt.show() 
 
+# print array of 2D arrays in gray scale >> one at a time
 def colorPrintSuccessor(Successor):
 	for i in range(len(Successor)):
 		title = "successor number" + str(i)
 		colorPrint(Successor[i], title)
 
-# make rows and cols equal
+# Make rows and cols equal
 def equal(rows, cols):
         if len(rows) < len(cols):
                 for i in range(len(cols)-1):
@@ -37,7 +41,7 @@ def equal(rows, cols):
                         cols.append(cols[0])
         return rows, cols
 
-# create aa state from rows and cols index
+# Create a state from rows and cols index
 def makeState (rows, cols, mode = 0):
 	# test mode: draw or win
     if mode == 1:
@@ -59,8 +63,7 @@ def makeState (rows, cols, mode = 0):
     pp.pprint(currentState)
     return currentState
     
-
-
+# testing version of Successors()
 def Successors(state,turn):
         successors=[]
         tempState= deepcopy(state)
@@ -91,10 +94,46 @@ def testBaseCase(state):
                 print("Test failed "+ str(e))
 
 
-def testSuccesors(rows, cols):
-	pp = pprint.PrettyPrinter()
-	#currentState = [['0' for]]
+def testBoardInterface():
+	board = make_board()
+	pboard=np.array(board)
 
+	no_winner = True
+	turn = 0 
+
+	pretty_print(pboard)
+
+	while no_winner:
+	    #player 1
+	    if turn == 0:
+	        col = int(input("choose where to play (from 0 to 6):"))
+
+	        while col > 6 or col < 0:
+	            col = int(input("choose where to play (from 0 to 6):"))
+
+	        if column_is_full(board, col):
+	            row= open_row_position(board, col)
+	            drop_piece(board, row, col, "G")
+
+	    #player 2        
+	    else:
+	        col = int(input("choose where to play (from 0 to 6):"))
+
+	        while col > 6 or col < 0:
+	            col = int(input("choose where to play (from 0 to 6):"))  
+
+	        if column_is_full(board, col):
+	            row=open_row_position(board, col)
+	            drop_piece(board,row,col,"R")
+	    
+	    # Flip board
+	    fboard = np.flip(board,0)
+	    print(fboard)
+	            
+	    turn = turn + 1
+	    turn = turn % 2
+
+'''
 print("***TESTING PRINTING BOARD IN COLORS***")
 print(colorPrint([['0', '0', 'G', '0', '0', '0', '0'],
        ['0', '0', '0', '0', '0', '0', '0'],
@@ -132,6 +171,7 @@ testBaseCase(makeState([0,0,0,1,1,1,1,2,2,2,3,3,3,3,3,4,4,5,5,5,5],
 
 
 print("***TESTING SUCCESSORS***")
-
 Successors(makeState([5,4,3,2], [4,1,2,3]), 'R')
+'''
 
+testBoardInterface()
