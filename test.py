@@ -2,20 +2,22 @@ import pprint
 from  ai import *
 import numpy as np
 import matplotlib.pyplot as plt
+from copy import deepcopy
 
 pp = pprint.PrettyPrinter()
 
 def colorPrint(state,  title = "figure1"):
+	tempState = state
 	for col in range(7):
 		for row in reversed(range(6)):
-			if state[row][col] == '0':
-				state[row][col] = 0
-			elif state[row][col] == 'R':
-				state[row][col] = 1
-			elif state[row][col] == 'G':
-				state[row][col] = 2
+			if tempState[row][col] == '0':
+				tempState[row][col] = 0
+			elif tempState[row][col] == 'R':
+				tempState[row][col] = 1
+			elif tempState[row][col] == 'G':
+				tempState[row][col] = 2
 
-	array = np.array(state).astype(np.uint8)
+	array = np.array(tempState).astype(np.uint8)
 	plt.imshow(array, cmap="gray")
 	plt.title(title)
 	plt.show() 
@@ -61,24 +63,19 @@ def makeState (rows, cols, mode = 0):
 
 def Successors(state,turn):
         successors=[]
-        tempState=state
+        tempState= deepcopy(state)
         for col in range(7):
         	for row in reversed(range(6)):
+        		#print(state)
         		if state[row][col] == '0':
-        			#print(row,col)
-        			tempState=state
+        			print(row,col)
+        			tempState=deepcopy(state)
         			tempState[row][col]=turn
-        			#pp.pprint(tempState)
         			successors.append(tempState)
-        			#print("Successors: ")
-        			#pp.pprint(successors)
-        			tempState[row][col]='0'
-        			
-        			#Move to the next column
         			break
         # get the 7 possible states out of each state: 0 to 6 using khaled's code
         print("Possible successors: ")
-        #pp.pprint(successors)
+        pp.pprint(successors)
         colorPrintSuccessor(successors)
         return successors
 
@@ -97,7 +94,16 @@ def testBaseCase(state):
 def testSuccesors(rows, cols):
 	pp = pprint.PrettyPrinter()
 	#currentState = [['0' for]]
-'''
+
+print("***TESTING PRINTING BOARD IN COLORS***")
+print(colorPrint([['0', '0', 'G', '0', '0', '0', '0'],
+       ['0', '0', '0', '0', '0', '0', '0'],
+       ['0', '0', '0', 'R', '0', '0', '0'],
+       ['0', '0', 'R', '0', '0', '0', '0'],
+       ['0', 'R', '0', '0', '0', '0', '0'],
+       ['R', '0', '0', '0', '0', 'R', '0']]))
+
+
 print("***TESTING ROW***")
 testBaseCase(makeState([0], [1,2,3,4]))
 
@@ -119,20 +125,13 @@ testBaseCase(makeState([5,4,3,2], [0,1,2,3]))
 print("***TESTING DIAGONAL***")
 testBaseCase(makeState([2,3,4,5], [0,1,2,3]))
 
+
 print("***TESTING DRAW***")
 testBaseCase(makeState([0,0,0,1,1,1,1,2,2,2,3,3,3,3,3,4,4,5,5,5,5],
          [1,2,4,0,1,3,5,3,5,6,0,1,2,4,5,3,4,0,1,4,5], 1))
 
-'''
-print("***TESTING PRINTING BOARD IN COLORS***")
-print(colorPrint([['0', '0', 'G', '0', '0', '0', '0'],
-       ['0', '0', '0', '0', '0', '0', '0'],
-       ['0', '0', '0', 'R', '0', '0', '0'],
-       ['0', '0', 'R', '0', '0', '0', '0'],
-       ['0', 'R', '0', '0', '0', '0', '0'],
-       ['R', '0', '0', '0', '0', 'R', '0']]))
 
 print("***TESTING SUCCESSORS***")
 
-Successors(makeState([5,4,3,2], [0,1,2,3]), 'R')
+Successors(makeState([5,4,3,2], [4,1,2,3]), 'R')
 
