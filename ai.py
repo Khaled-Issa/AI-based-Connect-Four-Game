@@ -9,7 +9,7 @@ def column_is_full(board,col):
     return board[5][col] == 0
 def isFull(board):
     for i in range(7):
-        if !column_is_full(board,i):
+        if not column_is_full(board,i):
             return False
     return True
 def isComplete(row,start,end):
@@ -18,8 +18,6 @@ def isComplete(row,start,end):
             return 0
     return row[0]
 def isBaseCase(state):
-    if isFull(state):
-        return 'D'
     for row in range(6):
         for col in range(7):
             if state[row][col] == '0':
@@ -45,6 +43,8 @@ def isBaseCase(state):
                 result = isComplete(vec,0,4)
                 if result != 0:
                     return result
+    if isFull(state):
+        return 'D'
     return '0'
             
         
