@@ -75,7 +75,7 @@ def AlphaBeta():
 	        while col > 6 or col < 0:
 	            col = int(input("choose where to play (from 0 to 6):"))
 
-	        if column_is_full(board, col):
+	        if column_is_not_full(board, col):
 	            row= open_row_position(board, col)
 	            drop_piece(board, row, col, "G")
    
@@ -85,8 +85,7 @@ def AlphaBeta():
 	    	v = MaxValue(board, float("-inf"), float("inf"))
 	    	# IS V the brnahes value ? Nope
 	    	# CREATE ACTION HERE
-	    	if column_is_full(board, col):
-	        	print("column is full")
+	    	if column_is_not_full(board, col):
 	        	row=open_row_position(board, col)
 	        	drop_piece(board,row,col,"R")
 	    
