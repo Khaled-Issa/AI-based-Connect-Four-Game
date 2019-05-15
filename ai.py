@@ -10,7 +10,7 @@ def column_is_not_full(board,col):
     
 def isFull(board):
     for i in range(7):
-        if not column_is_not_full(board,i):
+        if column_is_not_full(board,i):
             return False
     return True
 def isComplete(row,start,end):
@@ -45,7 +45,7 @@ def isBaseCase(state):
                 if result != 0:
                     return result
     if isFull(state):
-        return 'D'
+        return 'H'
     return '0'
             
         

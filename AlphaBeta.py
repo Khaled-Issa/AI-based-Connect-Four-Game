@@ -5,7 +5,8 @@ import pprint
 import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
-
+INF = 100000
+NEGINF = -1
 # return all the state successors
 def Successors(state, turn):
 	print("I'm here")
@@ -18,42 +19,49 @@ def Successors(state, turn):
 				tempState [row][col] = turn
 				successors.append(tempState)
 				break
-	return successors
+	###A list containing the direct children of the state as the first element
+	###And the move 
+	successor_Path=[successors,moves]
+	return successor_Path
 # return the minmum value of this state
-def MinValue(state, Alpha, Beta):
+def MinValue(state, Alpha, Beta,path):
 	# Check if the current state is a terminal one "win/draw"
 	# if yes return the utitilty "R/G/0"
 	utitilty = isBaseCase(state)
 	if utitilty != "0":
 		return utitilty
 	
-	value = float("inf")
+	value = INF
 
 	# loop in all successors/children
-	for x in Successors(state,'G'):
-		maxValue = MaxValue(x, Alpha, Beta)
+	for x in Successors(state,'G')[0]:
+                path.append(Successors(state,'G')[1])
+		maxValue = ord(MaxValue(x, Alpha, Beta, path))
 		value = min(value, maxValue)
 		if value <= Alpha:
 			return value
+		###I dont' know what is that doing
 		Beta = max(Beta, value)
 	return value
 
 # return the max value of this state
-def MaxValue(state, Alpha, Beta):
+def MaxValue(state, Alpha, Beta,path):
 	# Check if the current state is a terminal one "win/draw"
 	# if yes return the utitilty "R/G/0"
 	utitilty = isBaseCase(state)
 	if utitilty != "0":
 		return utitilty
 	
-	value = float("-inf")
+	value = NEGINF
 
 	# loop in all successors/children
-	for x in Successors(state,'R'):
-		minValue = float(MinValue(X,Alpha,Beta))
+	for x in Successors(state,'R')[0]:
+                path.append(Successors(state,'G')[1])
+		minValue = ord(MinValue(X,Alpha,Beta, path))
 		value = max(value, minValue)
 		if value >= Beta:
 			return value
+		###I dont' know what is that doing
 		Alpha = max(Alpha, value)
 	return value
 
@@ -82,7 +90,8 @@ def AlphaBeta():
 	    else:
 	        # player 2 >> CHANGE THE 2ND PLAYER TO BOARD
 	        # Tree, Alpha Beta pruning
-	    	v = MaxValue(board, float("-inf"), float("inf"))
+	        path=[]
+	    	v = MaxValue(board, NEGINF,INF ,path)
 	    	# IS V the brnahes value ? Nope
 	    	# CREATE ACTION HERE
 	    	if column_is_not_full(board, col):
