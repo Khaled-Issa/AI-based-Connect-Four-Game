@@ -75,7 +75,7 @@ def Successors(state,turn):
         			break
         # get the 7 possible states out of each state: 0 to 6 using khaled's code
         print("Possible successors: ")
-        pp.pprint(successors)
+        #pp.pprint(successors)
         colorPrintSuccessor(successors)
         return successors
 
