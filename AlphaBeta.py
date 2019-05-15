@@ -7,20 +7,18 @@ import matplotlib.pyplot as plt
 from copy import deepcopy
 
 # return all the state successors
-def Successors(state,turn):
-        successors=[]
-        tempState= deepcopy(state)
-        for col in range(7):
-        	for row in reversed(range(6)):
-        		#print(state)
-        		if state[row][col] == '0':
-        			tempState=deepcopy(state)
-        			tempState[row][col]=turn
-        			successors.append(tempState)
-        			break
-        # get the 7 possible states out of each state: 0 to 6 using khaled's code
-        return successors
-
+def Successors(state, turn):
+	print("I'm here")
+	successors = []
+	tempState = deepcopy(state)
+	for col in range(7):
+		for row in reversed(range(6)):
+			if state[row][col] == '0':
+				tempState = deepcopy(state)
+				tempState [row][col] = turn
+				successors.append(tempState)
+				break
+	return successors
 # return the minmum value of this state
 def MinValue(state, Alpha, Beta):
 	# Check if the current state is a terminal one "win/draw"
