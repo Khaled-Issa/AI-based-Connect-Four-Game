@@ -9,12 +9,11 @@ INF = 100000
 NEGINF = -1
 # return all the state successors
 def Successors(state, turn):
-        print("I'm here")
         successors = []
         moves=[]
         tempState = deepcopy(state)
         for col in range(7):
-                for row in reversed(range(6)):
+                for row in range(6):
                         if state[row][col] == '0':
                                 tempState = deepcopy(state)
                                 tempState [row][col] = turn
@@ -29,9 +28,9 @@ def Successors(state, turn):
 def MinValue(state, Alpha, Beta,path):
         # Check if the current state is a terminal one "win/draw"
         # if yes return the utitilty "R/G/0"
-        utitilty = isBaseCase(state)
-        if utitilty != "0":
-                return utitilty
+        utility = isBaseCase(state)
+        if utility != "0":
+                return ord(utility)
         
         value = INF
 
@@ -39,7 +38,7 @@ def MinValue(state, Alpha, Beta,path):
         successors_path=Successors(state,'G')
         for childState, move in zip(successors_path[0],successors_path[1]):
                 path.append(move)
-                maxValue = ord(MaxValue(childState, Alpha, Beta, path))
+                maxValue = MaxValue(childState, Alpha, Beta, path)
                 value = min(value, maxValue)
                 if value <= Alpha:
                         return value
@@ -51,9 +50,9 @@ def MinValue(state, Alpha, Beta,path):
 def MaxValue(state, Alpha, Beta,path):
         # Check if the current state is a terminal one "win/draw"
         # if yes return the utitilty "R/G/0"
-        utitilty = isBaseCase(state)
-        if utitilty != "0":
-                return utitilty
+        utility = isBaseCase(state)
+        if utility != "0":
+                return ord(utility)
         
         value = NEGINF
 
@@ -61,12 +60,15 @@ def MaxValue(state, Alpha, Beta,path):
         successors_path=Successors(state,'R')
         for childState, move in zip(successors_path[0],successors_path[1]):
                 path.append(move)
-                minValue = ord(MinValue(childState,Alpha,Beta, path))
+                minValue = MinValue(childState,Alpha,Beta, path)
                 value = max(value, minValue)
                 if value >= Beta:
                         return value
                 ###I dont' know what is that doing
                 Alpha = max(Alpha, value)
+        pretty_print(state)
+        print(Alpha)
+        print(Beta)
         return value
 
 # return action to the Interface function >> NOT DONE YET
@@ -78,7 +80,7 @@ def AlphaBeta():
         no_winner = True
         turn = 0 
 
-        pretty_print(pboard)
+        
         while no_winner:
             #player 1
             if turn == 0:
@@ -96,6 +98,7 @@ def AlphaBeta():
                 # Tree, Alpha Beta pruning
                 path=[]
                 v = MaxValue(board, NEGINF,INF ,path)
+                print(path,1)
                 # IS V the brnahes value ? Nope
                 # CREATE ACTION HERE
                 if column_is_not_full(board, col):
